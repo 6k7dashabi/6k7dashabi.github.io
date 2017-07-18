@@ -102,7 +102,7 @@
 <meta property="og:description" content="C++中的内存对齐1.什么是内存对齐？通俗地说，内存对齐是为了让内存存取更有效率而采用的一种编译阶段优化内存存取的手段。首先我们要知道的是在C++中，为了保证对象拥有彼此独立的内存地址，令空类的内存大小为1字节，非空类的大小取决于类中非静态成员变量和虚函数表，而决定类中非静态成员变量大小的就是编译器中关于内存对齐的设置。类中成员变量在内存中的存储并不一定是连续的，决定按照多大的内存块来存储这些变量">
 <meta property="og:image" content="http://yoursite.com/2017/07/16/neicunduiqi/neicunduiqi-0.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/07/16/neicunduiqi/neicunduiqi-1.jpg">
-<meta property="og:updated_time" content="2017-07-16T16:28:40.506Z">
+<meta property="og:updated_time" content="2017-07-18T14:45:14.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++中的内存对齐">
 <meta name="twitter:description" content="C++中的内存对齐1.什么是内存对齐？通俗地说，内存对齐是为了让内存存取更有效率而采用的一种编译阶段优化内存存取的手段。首先我们要知道的是在C++中，为了保证对象拥有彼此独立的内存地址，令空类的内存大小为1字节，非空类的大小取决于类中非静态成员变量和虚函数表，而决定类中非静态成员变量大小的就是编译器中关于内存对齐的设置。类中成员变量在内存中的存储并不一定是连续的，决定按照多大的内存块来存储这些变量">
@@ -355,9 +355,9 @@
 <pre><code>#pragma pack(n)
 struct A
 {
-char c; //1byte
-int i; //4byte
-short s; //2byte
+    char c; //1byte
+    int i; //4byte
+    short s; //2byte
 };
 </code></pre><ol>
 <li>当n=4时，sizeof(A)=12；<img src="/2017/07/16/neicunduiqi/neicunduiqi-0.jpg" alt="n=4" title="n=4">
@@ -367,6 +367,7 @@ short s; //2byte
 首先，c被放在结构体的首地址上，然后i以min（2，4）=2进行对齐，s以长度2进行对齐，最终总长度为8，不需要填充字节。</li>
 </ol>
 <p>此外，当结构体成员为数组时，将数组的每个元素当成一个个成员来分配，规则不变。</p>
+<p>union的内存对齐就简单多了，由于union内的成员共享内存，同一时间只存在一个成员对象，所以一个union对象的大小等于union中最大的数据成员的长度。</p>
 <h2 id="3-内存对齐的作用"><a href="#3-内存对齐的作用" class="headerlink" title="3.内存对齐的作用"></a>3.内存对齐的作用</h2><p>内存对齐主要是为了提高cpu存取的效率和准确性（在一些情况下，没有对齐会导致数据不同步），总的来说内存对齐的作用体现两个方面：</p>
 <ul>
 <li>平台原因(移植原因)：不是所有的硬件平台都能访问任意地址上的任意数据；某些硬件平台只能在某些地址处取某些特定类型的数据，否则抛出硬件异常（例如奇偶地址访问）。</li>
@@ -433,8 +434,8 @@ short s; //2byte
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/16/structandunion/" rel="prev" title="structandunion">
-                structandunion <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/16/structandunion/" rel="prev" title="结构体和联合体">
+                结构体和联合体 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -520,10 +521,10 @@ short s; //2byte
             
             
             <div class="site-state-item site-state-tags">
-              
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
