@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="结构体和联合体1.定义structstruct是一种复合数据类型，其构成元素既可以是基本数据类型（如int、long、float等）的变量，也可以是一些复合数据类型（如array、struct、union等）的数据单元。对于结构体，编译器会自动进行成员变量的内存对齐，以提高效率。缺省情况下，编译器为结构体的每个成员按其自然对界条件分配空间。各个成员按照它们被声明的顺序在内存中顺序存储，第一个成员的">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结构体和联合体">
+<meta property="og:url" content="http://yoursite.com/2017/07/18/structandunion/index.html">
+<meta property="og:site_name" content="大家一起来造轮子吧">
+<meta property="og:description" content="结构体和联合体1.定义structstruct是一种复合数据类型，其构成元素既可以是基本数据类型（如int、long、float等）的变量，也可以是一些复合数据类型（如array、struct、union等）的数据单元。对于结构体，编译器会自动进行成员变量的内存对齐，以提高效率。缺省情况下，编译器为结构体的每个成员按其自然对界条件分配空间。各个成员按照它们被声明的顺序在内存中顺序存储，第一个成员的">
+<meta property="og:updated_time" content="2017-07-22T03:11:08.296Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="结构体和联合体">
+<meta name="twitter:description" content="结构体和联合体1.定义structstruct是一种复合数据类型，其构成元素既可以是基本数据类型（如int、long、float等）的变量，也可以是一些复合数据类型（如array、struct、union等）的数据单元。对于结构体，编译器会自动进行成员变量的内存对齐，以提高效率。缺省情况下，编译器为结构体的每个成员按其自然对界条件分配空间。各个成员按照它们被声明的顺序在内存中顺序存储，第一个成员的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/18/structandunion/"/>
+
+
+
+
+
+  <title>结构体和联合体 | 大家一起来造轮子吧</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dfbd2e65b8ea90497a1fc1177c31ccab";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大家一起来造轮子吧</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/18/structandunion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="莫少华">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大家一起来造轮子吧">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">结构体和联合体</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-18T23:29:12+08:00">
+                2017-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="结构体和联合体"><a href="#结构体和联合体" class="headerlink" title="结构体和联合体"></a>结构体和联合体</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h2><h3 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h3><p>struct是一种复合数据类型，其构成元素既可以是基本数据类型（如int、long、float等）的变量，也可以是一些复合数据类型（如array、struct、union等）的数据单元。对于结构体，编译器会自动进行成员变量的内存对齐，以提高效率。<br>缺省情况下，编译器为结构体的每个成员按其自然对界条件分配空间。各个成员按照它们被声明的顺序在内存中顺序存储，第一个成员的地址和整个结构的地址相同。关于内存对齐可以参考：<a href="https://6k7dashabi.github.io/2017/07/16/neicunduiqi/" target="_blank" rel="external">C++中的内存对齐</a><br><a id="more"></a></p>
+<p>而C++中的struct相比于C中的struct有以下区别：</p>
+<ul>
+<li>在C中struct是一种用户自定义数据类型，而在C++中它是一种抽象数据类型</li>
+<li>在C中struct没有权限设置，而在C++中有访问权限</li>
+<li>在C中struct不能包含成员函数，不能继承，也不能实现多态，而这一切在C++中都可以<br>struct在使用中需要注意以下几点：</li>
+<li>在用模版的时候只能写template &lt; class Type &gt;或template &lt; typename Type &gt;不能写template &lt; struct Type &gt;</li>
+<li>struct可以相互嵌套使用，但是，struct可以包含struct指针而不能直接包含struct变量</li>
+</ul>
+<p>C++中的struct使用起来与class十分相似，它与class主要有以下区别：</p>
+<ul>
+<li>struct不能含有方法而class可以</li>
+<li>struct默认成员访问权限，默认继承访问权限都为public，而class是private的</li>
+</ul>
+<p>此外，struct关键字起初是为了和C兼容才出现在C++中的，并且struct与class在不涉及多态和继承的情况下，存取效率是完全相同的。 </p>
+<h3 id="union"><a href="#union" class="headerlink" title="union"></a>union</h3><p>unnion，即联合体，是一种特殊的类，也是一种构造类型的数据结构。一个union内可以定义多种不同的数据类型，一个union对象可以装入该union中所定义的任何一种数据类型，并且这些数据共享同一段内存，以节省空间。这是union非常特殊的地方，此外，union变量所占用的内存长度等于最长的数据成员的内存长度。</p>
+<p>union起源与C，它在C/C++中的使用并没有太大的差别，唯一需要注意的地方详见C++中struct与class的区别的最后一点。</p>
+<p>C++中union与class的区别：</p>
+<ul>
+<li>union不支持继承</li>
+<li>union不能定义虚函数（也就是说无法实现多态）</li>
+<li>union默认成员访问权限为public（这点与struct一样）</li>
+<li>union中不允许存在静态和引用类型的成员</li>
+</ul>
+<p>关于最后一点，解释一下：由于union内的成员共享内存，所以静态，引用之类的东西是不可能存在的；同时，不是所有类都可以成为union的成员变量，如果一个类（或者其父类）含有自定义的构造函数，析构函数，拷贝函数，复制拷贝运算符或虚函数中的任意一个，那么这个类存在共享内存的行为，编译器无法保证这些对象不被破坏，也无法保证正确的调用构造，析构函数，十分可能引起内存泄漏，所以，该类的对象无法成为union的成员。</p>
+<p>上述问题出现的原因就是C语言中没有类的概念，而C++却引入了这一复杂的概念，所以在C++中使用union时应尽量保持C的风格，避免union与对象同时使用。</p>
+<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h2><p>我们先分别来看一下struct和union实际使用中需要注意的问题。<br>struct：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">struct Movie/*可以指定类型名也可以不指定*/</div><div class="line">&#123;</div><div class="line">    //成员默认都是public的</div><div class="line">    int ID;</div><div class="line">    string Name;</div><div class="line">&#125; myMovie; //可以在声明struct的时候声明一个struct实例</div><div class="line"> </div><div class="line"> </div><div class="line">int main()&#123;</div><div class="line">    //myMovie变量在Movie结构声明处定义了</div><div class="line">    myMovie.ID = 1;</div><div class="line">    myMovie.Name = &quot;重庆森林&quot;;</div><div class="line">    cout&lt;&lt;&quot;myMovie.ID = &quot;&lt;&lt;myMovie.ID&lt;&lt;endl;</div><div class="line">    cout&lt;&lt;&quot;myMovie.Name = &quot;&lt;&lt;movie.Name&lt;&lt;endl;</div><div class="line"> </div><div class="line">    //如果在struct中没显定义任何构造函数，那可以用&#123;&#125;进行初始化，如果定义了构造函数，则必须用构造函数的形式初始化</div><div class="line">    Movie m&#123;2，&quot;女装山脉&quot;&#125;;</div><div class="line">    cout&lt;&lt;&quot;m.ID=&quot;&lt;&lt;m.ID&lt;&lt;endl;</div><div class="line">    cout&lt;&lt;&quot;m.Name=&quot;&lt;&lt;m.Name&lt;&lt;endl;</div><div class="line"> </div><div class="line">    //声明结构的指针</div><div class="line">    Movie * mp;</div><div class="line">    mp = &amp;m;</div><div class="line">    //在指针中调用成员时要用-&gt;符号，mp-&gt;ID等价于(*mp).ID</div><div class="line">    cout&lt;&lt;&quot;mp-&gt;ID = &quot;&lt;&lt;mp-&gt;ID&lt;&lt;endl;</div><div class="line">    cout&lt;&lt;&quot;mp-&gt;Name = &quot;&lt;&lt;mp-&gt;Name&lt;&lt;endl;</div><div class="line">    return 0;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>union：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">union test</div><div class="line">&#123;</div><div class="line">     char mark;</div><div class="line">     long num;</div><div class="line">     float score;</div><div class="line">&#125;a;</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">     cout&lt;&lt;a&lt;&lt;endl; // 这样会报错，因为无法直接访问union对象本身，只能访问其中的成员</div><div class="line">     a.mark = &apos;b&apos;;</div><div class="line">     cout&lt;&lt;a.mark&lt;&lt;endl; // 输出&apos;b&apos;</div><div class="line">     cout&lt;&lt;a.num&lt;&lt;endl; // 输出98  即字符&apos;b&apos;的ACSII值</div><div class="line">     cout&lt;&lt;a.score&lt;&lt;endl; // 输出错误值</div><div class="line"></div><div class="line">     a.num = 10;</div><div class="line">     cout&lt;&lt;a.mark&lt;&lt;endl; // 输出换行 因为换行符的char码就是10</div><div class="line">     cout&lt;&lt;a.num&lt;&lt;endl; // 输出10</div><div class="line">     cout&lt;&lt;a.score&lt;&lt;endl; // 输出错误值</div><div class="line"></div><div class="line">     a.score = 10.0;</div><div class="line">     cout&lt;&lt;a.mark&lt;&lt;endl; // 输出空</div><div class="line">     cout&lt;&lt;a.num&lt;&lt;endl; // 输出错误值</div><div class="line">     cout&lt;&lt;a.score&lt;&lt;endl; // 输出10</div><div class="line"></div><div class="line">     return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h2><p>struct在概念上更倾向于一种用户自定义的复杂数据结构，在使用上应与具有成员函数的class区分开来。就拿struct未定义构造函数时使用{}初始化举个例子，{}的方式是一种简单的参数列表进行初始化，适合于简单的数据结构，而如果struct加入了一个构造函数，那么这个struct就体现出了对象的特性，{}也将不再有效，这个现象本质上是由于默认访问控制权限造成的，{}初始化的方式仅在public的访问控制下可以使用。<br>那么如何区分一个类(class struct union)是否可以使用列表初始化来完成初始化工作呢？关键问题看这个类是否是一个聚合体（aggregate)，首先看下C++中关于类是否是一个聚合体的定义：</p>
+<ul>
+<li>无用户自定义构造函数。</li>
+<li>无私有或者受保护的非静态数据成员</li>
+<li>无基类</li>
+<li>无虚函数</li>
+<li>无{}和=直接初始化的非静态数据成员。</li>
+</ul>
+<p>从上面的讨论可以看出，struct更适合看成是一个数据结构的实现体，class更适合看成是一个对象的实现体。所以优秀的程序员应该在实际编码过程中来决定什么时候用struct什么时候用class。</p>
+<p>接下来说一下union，它实际上是开辟一段固定大小的内存（按照最大成员大小），然后程序员自由的存取，这样的做法虽然节省了部分的空间，但我觉得最大的优势还是在于变量的复用性，以及对变量进行结构对齐。union在操作系统底层的代码中用的比较多，因为它在内存共享布局上方便且直观，所以网络编程，协议分析，内核代码上有一些用到union都比较好懂，简化了设计。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/16/neicunduiqi/" rel="next" title="C++中的内存对齐">
+                <i class="fa fa-chevron-left"></i> C++中的内存对齐
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="莫少华" />
+          <p class="site-author-name" itemprop="name">莫少华</p>
+           
+              <p class="site-description motion-element" itemprop="description">当潮流爱新鲜 &nbsp;当旁人爱标签 <br/>幸得伴着你我 &nbsp;是窝心的自然</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#结构体和联合体"><span class="nav-number">1.</span> <span class="nav-text">结构体和联合体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-定义"><span class="nav-number">1.1.</span> <span class="nav-text">1.定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#struct"><span class="nav-number">1.1.1.</span> <span class="nav-text">struct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#union"><span class="nav-number">1.1.2.</span> <span class="nav-text">union</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用"><span class="nav-number">1.2.</span> <span class="nav-text">2.使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-number">1.3.</span> <span class="nav-text">3.总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">莫少华</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
